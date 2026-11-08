@@ -6,8 +6,7 @@ permissions:
   issues: write
 
 on:
-  schedule:
-    - cron: "0 0 * * *" # every day
+  # 自动同步已关闭（fork 前端产物自建，自动合并会造成版本错配）
   workflow_dispatch:
     inputs:
       confirm_breaking_update:
