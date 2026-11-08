@@ -3,8 +3,7 @@
 name: Render Star History
 
 on:
-  schedule:
-    - cron: "17 3 * * 1"
+  # 自动任务已关闭（改为手动触发）
   workflow_dispatch:
     inputs:
       force_bootstrap:
