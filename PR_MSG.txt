@@ -1,0 +1,16 @@
+perf(frontend): 去掉 Element Plus 整包引入 + 仅注册用到的图标，首屏 JS gzip -63%
+
+变更（frontend-dist 重新构建，来源 MarSeventh/Sanyue-ImgHub v2.7.7）：
+- main.js: 移除 `app.use(ElementPlus)` 全量注册（vue.config.js 里已配置
+  unplugin-vue-components 按需引入，全局注册是重复的），改从
+  config-provider 深路径引入 messageConfig，保持消息 offset 行为不变
+- main.js: 把 `import * as ElementPlusIconsVue` 全量图标注册（2000+ 个）
+  改为仅注册模板/JS 实际用到的 8 个：User Lock Link Delete List Checked Failed Loading
+
+效果（gzip 传输体积）：
+- js/chunk-vendors  507KB -> 186KB
+- 入口 JS/CSS 合计  547KB -> 227KB
+- 整页首屏          2.63MB -> 741KB
+
+已验证：首页、登录页正常渲染，Element Plus 组件/图标/FontAwesome 均正常，
+懒加载分块无运行时错误（浏览器实测 0 error）。
