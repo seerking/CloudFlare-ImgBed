@@ -6,8 +6,9 @@ permissions:
   issues: write
 
 on:
-  schedule:
-    - cron: "0 0 * * *" # every day
+  # 自动同步已关闭：本 fork 的 frontend-dist 是自建产物（Element Plus 按需引入 + 图片压缩），
+  # 自动合并上游会导致「后端升级 / 前端旧产物」的版本错配，历史上已因此打穿过上传功能。
+  # 升级请手动触发，并按 skill cloudflare-dns-ops 里的流程重建前端 + 验证上传/删除/批量三条链路。
   workflow_dispatch:
     inputs:
       confirm_breaking_update:
